@@ -1,0 +1,31 @@
+
+<div class="container">
+    <div class="row">
+        {% if players is not empty %}
+            <table>
+                <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Titre de noblesse</th>
+                    <th>Couleur</th>
+                    <th>Supprimer</th>
+                    <th>Éditer</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for player in players %}
+                    <tr>
+                        <td>{{ player.name }}</td>
+                        <td>{{ player.title }}</td>
+                        <td>{{ player.color }}</td>
+                        <td><a href="/players/delete/{{ player.id }}">Supprimer</a></td>
+                        <td><a href="/players/edit/{{ player.id }}">Éditer</a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Aucun joueur trouvé.</p>
+        {% endif %}
+    </div>
+</div>
