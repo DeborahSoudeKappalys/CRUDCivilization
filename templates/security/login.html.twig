@@ -10,13 +10,17 @@
             <form class="form-horizontal" role="form" method="post">
               <AmpContent>
                 <div class="alert alert-danger">
-                    {{ error.messageKey|trans(error.messageData, 'security') }}
+                    {% if error is not null %}
+                        {{ error.messageKey|trans(error.messageData, 'security') }}
+                    {% endif %}
                 </div>
               </NonAmpContent>
               <AmpContent>
                 <div class="mb-3">
+                {% if app.user is not null %}
                     You are logged in as {{ app.user.username }},
                     <a href="{{ path('app_logout') }}">Logout</a>
+                {% endif %}
                 </div>
               </NonAmpContent>
               <div class="card-header mb-3">Please sign in</div>
