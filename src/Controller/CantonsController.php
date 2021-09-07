@@ -21,31 +21,6 @@ class CantonsController extends AbstractController
     }
 
     /**
-     * @Route("/cantons/new")
-     */
-    public function createAction(Request $request) {
-        $cantons = new Cantons();
-        $form = $this->createFormBuilder($cantons)
-            ->add('name', TextType::class)
-            ->add('blazon', TextType::class)
-            ->add('description', TextType::class)
-            ->add('save', SubmitType::class, ['label' => 'Valider'])
-            ->getForm();
-        $form->handleRequest($request);
-        if ($form->isSubmitted()) {
-            dd("Oui");
-            $cantons = $form->getData();
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($cantons);
-            $em->flush();
-            echo 'Envoyé';
-        }
-        return $this->render('cantons/new.html.twig', [
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
      * @Route("/cantons", name="cantons")
      */
     public function index(): Response
