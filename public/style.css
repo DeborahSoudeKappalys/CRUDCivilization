@@ -1,0 +1,165 @@
+body {
+    background-image: url('./assets/gothic-pattern-20.jpg');
+}
+
+nav {
+    background-color: #d2a96a;
+}
+
+img.navbar-brand {
+    max-width: 180px;
+}
+
+ampcontent, nonAmpContent {
+    display: flex;
+    align-items: center;
+}
+
+ampcontent a, nonAmpContent a {
+    color: #3b3a3b;
+    font-weight: 600;
+}
+
+ampcontent a:hover, nonAmpContent a:hover {
+    color: #4D5B5B;
+}
+
+/* TYPOS */
+h1 {
+    font-family: 'Almendra SC', serif;
+    font-size: 2.3rem;
+    margin: 0;
+}
+
+h2 {
+    font-family: 'Almendra SC', serif;
+    font-size: 2rem;
+    margin: .8rem 0;
+}
+
+/* FLASH MESSAGES */
+.alert.alert-success {
+    border-radius: 0;
+    background-color: #02a529;
+    border: none;
+    color: white;
+    font-weight: 700;
+}
+
+.alert.alert-alert {
+    border-radius: 0;
+    background-color: #a50202;
+    border: none;
+    color: white;
+    font-weight: 700;
+}
+
+/* AUTRES */
+.w-50 {
+    width: 50px !important;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* NEW PLAYER */
+.form {
+    background-image: url(./assets/form_bg.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    max-width: 500px;
+    text-align: center;
+    padding: 3rem 0;
+    margin: 20vh auto;
+}
+
+.form h1 {
+    color: #d2a96a;
+    margin-bottom: 2rem;
+}
+
+div#form > div {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 0;
+}
+
+div#form label {
+    text-align: center;
+    font-family: sans-serif;
+    color: #d2a96a;
+}
+
+div#form input, div#form select {
+    background-color: #d2a96a;
+    border: 1px solid #a37f4f;
+    outline: none;
+    padding: 8px 1rem;
+    max-width: min-content;
+    margin: auto;
+}
+
+div#form button {
+    background-color: #3b3a3a;
+    border-radius: 0;
+    width: initial;
+    height: initial;
+    color: #d2a96a;
+    padding: 8px 1rem;
+    font-size: 1rem;
+    margin-top: 2rem;
+    text-transform: uppercase;
+    max-width: min-content;
+    margin: auto;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+
+div#form button:hover {
+    color: #3b3a3a;
+    background-color: #d2a96a;
+}
+
+p.sucess {
+    position: absolute;
+    color: #0eef0e;
+    top: 37vh;
+    left: 46.5vw;
+    z-index: 1;
+    font-weight: 600;
+    margin: 8px;
+}
+
+p.echec {
+    position: absolute;
+    color: #ef0e0e;
+    top: 37vh;
+    left: 46.5vw;
+    z-index: 1;
+    font-weight: 600;
+    margin: 8px;
+}
+
+/* LIST ALL PLAYERS */
+table.table.table-striped {
+    background: #d2a96a;
+    margin: 1rem;
+    max-width: calc(100% - 2rem);
+    color: #3b3a3a;
+}
+
+thead {
+    background: #3b3a3a;
+    color: #d2a96a;
+}
+
+.table thead th {
+    border: none;
+}
+
+table.table.table-striped img {
+    max-width: 25px;
+}
