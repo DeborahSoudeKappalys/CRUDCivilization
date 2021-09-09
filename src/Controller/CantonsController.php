@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
 class CantonsController extends AbstractController
@@ -31,5 +32,14 @@ class CantonsController extends AbstractController
             'path' => 'src/Controller/CantonsController.php',
             'cantons' => $this->repo->findAll(),
         ]);
+    }
+
+    /**
+     * @Route("/cantons/all", name="cantons_all")
+     */
+    public function getAllCantons(): JsonResponse
+    {
+        return new JsonResponse($this->repo->findAll(), 200, ['Access-Control-Allow-Origin'=> '*']);
+
     }
 }

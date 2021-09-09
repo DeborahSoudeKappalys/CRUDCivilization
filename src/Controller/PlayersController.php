@@ -7,9 +7,12 @@ use App\Repository\PlayersRepository;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\Json;
 
 class PlayersController extends AbstractController
 {
@@ -21,23 +24,44 @@ class PlayersController extends AbstractController
     }
 
     /**
-     * @Route("/players/new")
+     * @Route("/players/new", name="players_new")
      */
     public function createAction(Request $request) {
+        // return new JsonResponse(serialize($request), 200, ['Access-Control-Allow-Origin'=> '*', 'Access-Control-Allow-Headers'=> '*']);
+
         $players = new Players();
         $form = $this->createFormBuilder($players)
-            ->add('name', TextType::class)
-            ->add('title', TextType::class)
-            ->add('color', TextType::class)
+            ->add('name', TextType::class, [
+                'label' => 'Nom du joueur :'
+            ])
+            ->add('title', TextType::class, [
+                'label' => 'Titre de noblesse :'
+            ])
+            ->add('color', ChoiceType::class, [
+                'label' => 'Couleur jouée :',
+                'choices'  => [
+                    'Bleu' => 'Bleu',
+                    'Rouge' => 'Rouge',
+                    'Vert' => 'Vert',
+                    'Jaune' => 'Jaune'
+                ]
+            ])
             ->add('save', SubmitType::class, ['label' => 'Valider'])
             ->getForm();
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
             $players = $form->getData();
             $em = $this->getDoctrine()->getManager();
-            $em->persist($players);
-            $em->flush();
-            echo 'Envoyé';
+            try {
+                $em->persist($players);
+                $em->flush();
+                $this->addFlash('success', 'Joueur ajouté');
+                return $this->redirectToRoute('players_show');
+            } catch (\Throwable $th) {
+                //throw $th;
+                $this->addFlash('echec', 'Echec de l\'ajout');
+                return $this->redirectToRoute('players_new');
+            }
         }
         return $this->render('players/new.html.twig', [
             'form' => $form->createView(),
