@@ -8,32 +8,46 @@
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     />
+    <link
+      rel="stylesheet"
+      href= {{ asset('style.css') }}
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Almendra+SC&display=swap" rel="stylesheet">
+
     {% block stylesheets %}{% endblock %}
   </head>
   <body>
     <nav
-      class="navbar navbar-expand-lg navbar-light bg-light"
+      class="navbar navbar-expand-lg "
       style="height: 70px;"
     >
-      <a class="navbar-brand" href="#">Symfony</a>
+      <img class="navbar-brand" src="{{ asset('./assets/logo_civilization.svg')}}"/>
       <div class="collapse navbar-collapse" id="navbarSupportedContent"></div>
       <ul class="nav navbar-nav navbar-right">
         <AmpContent>
-        <li><a class="nav-link" href="{{ path('players_show') }}">View List</a></li>
-        <li><a class="nav-link" href="{{ path('app_logout') }}">Logout</a></li>
+          <li><a class="nav-link" href="{{ path('players_show') }}">Tous les joueurs</a></li>
+          <li><a class="nav-link" href="{{ path('app_logout') }}">Se déconnecter</a></li>
+        </AmpContent>
 
-</AmpContent>
-
-<NonAmpContent>
-
-        <li><a class="nav-link" href="{{ path('app_login') }}">Login</a></li>
-        <li>
-          <a class="nav-link" href="{{ path('registration') }}">Register</a>
-        </li>
-
-</NonAmpContent>
+        <NonAmpContent>
+          <li><a class="nav-link" href="{{ path('app_login') }}">Se connecter</a></li>
+          <li><a class="nav-link" href="{{ path('registration') }}">S'inscrire</a></li>
+        </NonAmpContent>
       </ul>
     </nav>
+      {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+      {% endfor %}
+
+      {% for message in app.flashes('echec') %}
+        <div class="alert alert-alert">
+            {{ message }}
+        </div>
+      {% endfor %}
     {% block body %}{% endblock %} {% block javascripts %}{% endblock %}
   </body>
 </html>
