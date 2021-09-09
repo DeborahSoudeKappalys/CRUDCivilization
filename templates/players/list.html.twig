@@ -1,31 +1,33 @@
 
-<div class="container">
-    <div class="row">
-        {% if players is not empty %}
-            <table>
-                <thead>
+{% extends 'base.html.twig' %}
+{% block title %}Ajouter un nouveau joueur{% endblock %}
+
+{% block body %}
+    {% if players is not empty %}
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Nom</th>
+                <th scope="col">Titre de noblesse</th>
+                <th scope="col">Couleur</th>
+                <th scope="col" class="w-50">Supprimer</th>
+                <th scope="col" class="w-50">Éditer</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for player in players %}
                 <tr>
-                    <th>Nom</th>
-                    <th>Titre de noblesse</th>
-                    <th>Couleur</th>
-                    <th>Supprimer</th>
-                    <th>Éditer</th>
+                    <td>{{ player.name }}</td>
+                    <td>{{ player.title }}</td>
+                    <td>{{ player.color }}</td>
+                    <td class="text-center"><a href="/players/delete/{{ player.id }}"><img src="{{ asset('./assets/remove.svg') }}" alt=""></a></td>
+                    <td class="text-center"><a href="/players/edit/{{ player.id }}"><img src="{{ asset('./assets/pencil.svg') }}" alt=""></a></td>
                 </tr>
-                </thead>
-                <tbody>
-                {% for player in players %}
-                    <tr>
-                        <td>{{ player.name }}</td>
-                        <td>{{ player.title }}</td>
-                        <td>{{ player.color }}</td>
-                        <td><a href="/players/delete/{{ player.id }}">Supprimer</a></td>
-                        <td><a href="/players/edit/{{ player.id }}">Éditer</a></td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        {% else %}
-            <p>Aucun joueur trouvé.</p>
-        {% endif %}
-    </div>
-</div>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Aucun joueur trouvé.</p>
+    {% endif %}
+
+{% endblock %}
