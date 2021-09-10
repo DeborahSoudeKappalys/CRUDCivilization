@@ -39,6 +39,12 @@ class Players
      */
     private $cantons;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Cantons::class, cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $city;
+
     public function __construct()
     {
         $this->cantons = new ArrayCollection();
@@ -111,6 +117,18 @@ class Players
                 $canton->setOwner(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCity(): ?Cantons
+    {
+        return $this->city;
+    }
+
+    public function setCity(Cantons $city): self
+    {
+        $this->city = $city;
 
         return $this;
     }

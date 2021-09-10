@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Players;
+use App\Repository\CantonsRepository;
 use App\Repository\PlayersRepository;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -17,10 +18,13 @@ use Symfony\Component\Validator\Constraints\Json;
 class PlayersController extends AbstractController
 {
     private PlayersRepository $repo;
+    private CantonsRepository $cantonRepo;
 
-    public function __construct(PlayersRepository $repo)
+    public function __construct(PlayersRepository $repo, CantonsRepository $cantonRepo)
     {
         $this->repo = $repo;
+        $this->cantonRepo = $cantonRepo;
+
     }
 
     /**
@@ -44,6 +48,15 @@ class PlayersController extends AbstractController
                     'Rouge' => 'Rouge',
                     'Vert' => 'Vert',
                     'Jaune' => 'Jaune'
+                ]
+            ])
+            ->add('city', ChoiceType::class, [
+                'label' => 'Canton de départ :',
+                'mapped' => false,
+                'choices'  => [
+                    'Saint-Etienne-du-Rouvray' => 31,
+                    'Eu' => $this->cantonRepo->findOneBy(['id' => 10])->getId(),
+                    'Saint-Romain-de-Colbosc' => $this->cantonRepo->findOneBy(['id' => 32])->getId()
                 ]
             ])
             ->add('save', SubmitType::class, ['label' => 'Valider'])
