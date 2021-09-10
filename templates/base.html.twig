@@ -26,15 +26,13 @@
       <img class="navbar-brand" src="{{ asset('./assets/logo_civilization.svg')}}"/>
       <div class="collapse navbar-collapse" id="navbarSupportedContent"></div>
       <ul class="nav navbar-nav navbar-right">
-        <AmpContent>
+        {% if app.user %}
           <li><a class="nav-link" href="{{ path('players_show') }}">Tous les joueurs</a></li>
           <li><a class="nav-link" href="{{ path('app_logout') }}">Se déconnecter</a></li>
-        </AmpContent>
-
-        <NonAmpContent>
+        {% else %}
           <li><a class="nav-link" href="{{ path('app_login') }}">Se connecter</a></li>
           <li><a class="nav-link" href="{{ path('registration') }}">S'inscrire</a></li>
-        </NonAmpContent>
+        {% endif %}
       </ul>
     </nav>
       {% for message in app.flashes('success') %}
