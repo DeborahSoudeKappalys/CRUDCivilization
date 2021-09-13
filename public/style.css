@@ -6,7 +6,11 @@ nav {
     background-color: #d2a96a;
 }
 
-img.navbar-brand {
+.navbar-brand{
+    width: 50%;
+}
+
+.navbar-brand img{
     max-width: 180px;
 }
 
@@ -163,6 +167,13 @@ thead {
 
 table.table.table-striped img {
     max-width: 25px;
+}
+
+p.noPlayers {
+    font-size: 25px;
+    color: white;
+    text-align: center;
+    padding: 40vh 0px;
 }
 
 /* LOGIN */
