@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Players;
 use App\Repository\CantonsRepository;
 use App\Repository\PlayersRepository;
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -25,6 +26,46 @@ class PlayersController extends AbstractController
         $this->repo = $repo;
         $this->cantonRepo = $cantonRepo;
 
+    }
+
+    /**
+     * @Route("/players", name="player_create", methods={"POST"})
+     */
+    public function create(Request $request): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $players = new Players();
+        try {
+            $players->setName($request->request->get('name'));
+            $players->setTitle($request->request->get('title'));
+
+            switch ($request->request->get('color')) {
+                case '4580ff':
+                    $players->setColor('Bleu');
+                    break;
+                case 'cc2e2e':
+                    $players->setColor('Rouge');
+                    break;
+                case '45df45':
+                    $players->setColor('Vert');
+                    break;
+                case 'bdbd30':
+                    $players->setColor('Jaune');
+                    break;
+            }
+            $em->persist($players);
+            $em->flush();
+        } catch (\Exception $e) {
+            return new JsonResponse([
+                'name' => 'Erreur de l\'ajout en base'
+            ]);
+        }
+
+        return new JsonResponse([
+            'name' => $request->request->get('name'),
+            'title' => $request->request->get('title'),
+            'color' => $request->request->get('color'),
+        ]);
     }
 
     /**
@@ -50,18 +91,19 @@ class PlayersController extends AbstractController
                     'Jaune' => 'Jaune'
                 ]
             ])
-            ->add('city', ChoiceType::class, [
-                'label' => 'Canton de départ :',
-                'mapped' => false,
-                'choices'  => [
-                    'Saint-Etienne-du-Rouvray' => 31,
-                    'Eu' => $this->cantonRepo->findOneBy(['id' => 10])->getId(),
-                    'Saint-Romain-de-Colbosc' => $this->cantonRepo->findOneBy(['id' => 32])->getId()
-                ]
-            ])
+            // ->add('city', ChoiceType::class, [
+            //     'label' => 'Canton de départ :',
+            //     'mapped' => false,
+            //     'choices'  => [
+            //         'Saint-Etienne-du-Rouvray' => 31,
+            //         'Eu' => $this->cantonRepo->findOneBy(['id' => 10])->getId(),
+            //         'Saint-Romain-de-Colbosc' => $this->cantonRepo->findOneBy(['id' => 32])->getId()
+            //     ]
+            // ])
             ->add('save', SubmitType::class, ['label' => 'Valider'])
             ->getForm();
         $form->handleRequest($request);
+
         if ($form->isSubmitted()) {
             $players = $form->getData();
             $em = $this->getDoctrine()->getManager();
@@ -70,8 +112,7 @@ class PlayersController extends AbstractController
                 $em->flush();
                 $this->addFlash('success', 'Joueur ajouté');
                 return $this->redirectToRoute('players_show');
-            } catch (\Throwable $th) {
-                //throw $th;
+            } catch (\Exception $e) {
                 $this->addFlash('echec', 'Echec de l\'ajout');
                 return $this->redirectToRoute('players_new');
             }
