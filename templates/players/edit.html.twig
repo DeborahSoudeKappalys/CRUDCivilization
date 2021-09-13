@@ -1,26 +1,27 @@
-<div class="container">
-    <div class="row">
-        {{ form_start(form) }}
-        <table>
-            <tbody>
-            <tr>
-                <th>Nom:</th>
-                <td>{{ form_widget(form.name) }}</td>
-            </tr>
-            <tr>
-                <th>Titre de noblesse:</th>
-                <td>{{ form_widget(form.title) }}</td>
-            </tr>
-            <tr>
-                <th>Couleur:</th>
-                <td>{{ form_widget(form.color) }}</td>
-            </tr>
-            <tr>
-                <th></th>
-                <td>{{ form_widget(form.save) }}</td>
-            </tr>
-            </tbody>
-        </table>
-        {{ form_end(form) }}
+{% extends 'base.html.twig' %}
+{% block title %}Éditer un joueur{% endblock %}
+
+{% block body %}
+<div class="form">
+    <h1>Éditer un joueur</h1>
+    {{ form_start(form) }}
+    <div id="form">
+    <div>
+    <label>Nom du joueur :</label>
+      {{ form_widget(form.name) }}
     </div>
+    <div>
+    <label>Titre de noblesse :</label>
+      {{ form_widget(form.title) }}
+    </div>
+    <div>
+    <label>Couleur jouée :</label>
+      {{ form_widget(form.color) }}
+    </div>
+    <div>
+      {{ form_widget(form.save) }}
+    </div>
+    </div>
+    {{ form_end(form) }}
 </div>
+{% endblock %}

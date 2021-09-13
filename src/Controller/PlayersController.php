@@ -165,7 +165,15 @@ class PlayersController extends AbstractController
         $form = $this->createFormBuilder($players)
             ->add('name', TextType::class)
             ->add('title', TextType::class)
-            ->add('color', TextType::class)
+            ->add('color', ChoiceType::class, [
+                'label' => 'Couleur jouée :',
+                'choices'  => [
+                    'Bleu' => 'Bleu',
+                    'Rouge' => 'Rouge',
+                    'Vert' => 'Vert',
+                    'Jaune' => 'Jaune'
+                ]
+            ])
             ->add('save', SubmitType::class, array('label' => 'Editer'))
             ->getForm();
         $form->handleRequest($request);
