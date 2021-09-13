@@ -2,37 +2,41 @@
 {% block title %}Connexion{% endblock %}
 
 {% block body %}
-<div class="form">
-  <h1>Connexion</h1>
-  <form class="form-horizontal" role="form" method="post">
-    {% if error is not null %}
-      <AmpContent>
-        <div class="alert alert-danger">
-                {{ error.messageKey|trans(error.messageData, 'security') }}
-        </div>
-      </AmpContent>
-    {% endif %}
-    <NonAmpContent>
-      <div class="mb-3">
-      {% if app.user is not null %}
-          <a href="{{ path('app_logout') }}">Logout</a>
+{% if app.user %}
+  <p class="alreadyConnected">Vous êtes déjà connecté</p>
+{% else %}
+  <div class="form">
+    <h1>Connexion</h1>
+    <form class="form-horizontal" role="form" method="post">
+      {% if error is not null %}
+        <AmpContent>
+          <div class="alert alert-danger">
+                  {{ error.messageKey|trans(error.messageData, 'security') }}
+          </div>
+        </AmpContent>
       {% endif %}
+      <NonAmpContent>
+        <div class="mb-3">
+        {% if app.user is not null %}
+            <a href="{{ path('app_logout') }}">Logout</a>
+        {% endif %}
+        </div>
+      </NonAmpContent>
+      <div id="form">
+        <div>
+          <label for="email" class="col-md-4 control-label">E-Mail</label>
+          <input id="inputEmail" type="email" class="form-control" name="email" value="{{ last_username }}" required autofocus />
+        </div>
+        <div>
+          <label for="password" class="col-md-4 control-label" >Mot de passe</label>
+          <input id="inputPassword" type="password" class="form-control" name="password" required />
+        </div>
+        <div>
+          <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" />
+        </div>
+        <button type="submit" class="btn btn-primary">Se connecter </button>
       </div>
-    </NonAmpContent>
-    <div id="form">
-      <div>
-        <label for="email" class="col-md-4 control-label">E-Mail</label>
-        <input id="inputEmail" type="email" class="form-control" name="email" value="{{ last_username }}" required autofocus />
-      </div>
-      <div>
-        <label for="password" class="col-md-4 control-label" >Mot de passe</label>
-        <input id="inputPassword" type="password" class="form-control" name="password" required />
-      </div>
-      <div>
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" />
-      </div>
-      <button type="submit" class="btn btn-primary">Se connecter </button>
-    </div>
-  </form>
-</div>
+    </form>
+  </div>
+{% endif %}
 {% endblock %}

@@ -171,7 +171,7 @@ table.table.table-striped img {
 
 p.noPlayers {
     font-size: 25px;
-    color: white;
+    color: #d2a96a;
     text-align: center;
     padding: 40vh 0px;
 }
@@ -185,4 +185,11 @@ p.noPlayers {
     width: 100%;
     margin: 0;
     padding: 0;
+}
+
+p.alreadyConnected {
+    font-size: 25px;
+    color: #d2a96a;
+    text-align: center;
+    padding: 40vh 0px;
 }
