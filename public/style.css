@@ -15,12 +15,12 @@ ampcontent, nonAmpContent {
     align-items: center;
 }
 
-ampcontent a, nonAmpContent a {
+nav ul a {
     color: #3b3a3b;
     font-weight: 600;
 }
 
-ampcontent a:hover, nonAmpContent a:hover {
+nav ul a:hover {
     color: #4D5B5B;
 }
 
