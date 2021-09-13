@@ -84,6 +84,7 @@ div#form > div {
     display: flex;
     flex-direction: column;
     padding: 1rem 0;
+    align-items: center;
 }
 
 div#form label {
@@ -97,7 +98,7 @@ div#form input, div#form select {
     border: 1px solid #a37f4f;
     outline: none;
     padding: 8px 1rem;
-    max-width: min-content;
+    max-width: fit-content;
     margin: auto;
 }
 
@@ -162,4 +163,15 @@ thead {
 
 table.table.table-striped img {
     max-width: 25px;
+}
+
+/* LOGIN */
+.alert.alert-danger {
+    background: transparent;
+    border: none;
+    color: #bb2929;
+    font-weight: 700;
+    width: 100%;
+    margin: 0;
+    padding: 0;
 }
