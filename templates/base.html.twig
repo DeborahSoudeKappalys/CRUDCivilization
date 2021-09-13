@@ -19,11 +19,8 @@
     {% block stylesheets %}{% endblock %}
   </head>
   <body>
-    <nav
-      class="navbar navbar-expand-lg "
-      style="height: 70px;"
-    >
-      <img class="navbar-brand" src="{{ asset('./assets/logo_civilization.svg')}}"/>
+    <nav class="navbar navbar-expand-lg " style="height: 70px;" >
+      <a class="navbar-brand" href="http://localhost:4200/initialisation"><img src="{{ asset('./assets/logo_civilization.svg')}}"/></a>
       <div class="collapse navbar-collapse" id="navbarSupportedContent"></div>
       <ul class="nav navbar-nav navbar-right">
         {% if app.user %}
