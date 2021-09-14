@@ -53,6 +53,8 @@ class PlayersController extends AbstractController
                     $players->setColor('Jaune');
                     break;
             }
+
+            $players->setCounty($this->cantonRepo->findOneBy(['id' => intval($request->request->get('county'))]));
             $em->persist($players);
             $em->flush();
         } catch (\Exception $e) {
@@ -65,6 +67,7 @@ class PlayersController extends AbstractController
             'name' => $request->request->get('name'),
             'title' => $request->request->get('title'),
             'color' => $request->request->get('color'),
+            'county' => intval($request->request->get('county')),
         ]);
     }
 
@@ -91,15 +94,14 @@ class PlayersController extends AbstractController
                     'Jaune' => 'Jaune'
                 ]
             ])
-            // ->add('city', ChoiceType::class, [
-            //     'label' => 'Canton de départ :',
-            //     'mapped' => false,
-            //     'choices'  => [
-            //         'Saint-Etienne-du-Rouvray' => 31,
-            //         'Eu' => $this->cantonRepo->findOneBy(['id' => 10])->getId(),
-            //         'Saint-Romain-de-Colbosc' => $this->cantonRepo->findOneBy(['id' => 32])->getId()
-            //     ]
-            // ])
+            ->add('county', ChoiceType::class, [
+                'label' => 'Canton de départ :',
+                'choices'  => [
+                    'Saint-Etienne-du-Rouvray' => $this->cantonRepo->findOneBy(['id' => 31])->getId(),
+                    'Eu' => $this->cantonRepo->findOneBy(['id' => 10])->getId(),
+                    'Saint-Romain-de-Colbosc' => $this->cantonRepo->findOneBy(['id' => 32])->getId()
+                ]
+            ])
             ->add('save', SubmitType::class, ['label' => 'Valider'])
             ->getForm();
         $form->handleRequest($request);
