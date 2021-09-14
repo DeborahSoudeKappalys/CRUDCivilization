@@ -10,6 +10,7 @@
                 <th scope="col">Nom</th>
                 <th scope="col">Titre de noblesse</th>
                 <th scope="col">Couleur</th>
+                <th scope="col">Canton de départ</th>
                 <th scope="col" class="w-50">Supprimer</th>
                 <th scope="col" class="w-50">Éditer</th>
             </tr>
@@ -20,6 +21,7 @@
                     <td>{{ player.name }}</td>
                     <td>{{ player.title }}</td>
                     <td>{{ player.color }}</td>
+                    <td>{{ player.county.name }}</td>
                     <td class="text-center"><a href="/players/delete/{{ player.id }}"><img src="{{ asset('./assets/remove.svg') }}" alt=""></a></td>
                     <td class="text-center"><a href="/players/edit/{{ player.id }}"><img src="{{ asset('./assets/pencil.svg') }}" alt=""></a></td>
                 </tr>

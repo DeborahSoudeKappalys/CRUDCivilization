@@ -39,6 +39,12 @@ class Players
      */
     private $cantons;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Cantons::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $county;
+
     public function __construct()
     {
         $this->cantons = new ArrayCollection();
@@ -111,6 +117,18 @@ class Players
                 $canton->setOwner(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCounty(): ?Cantons
+    {
+        return $this->county;
+    }
+
+    public function setCounty(?Cantons $county): self
+    {
+        $this->county = $county;
 
         return $this;
     }
