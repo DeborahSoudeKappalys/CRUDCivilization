@@ -97,9 +97,9 @@ class PlayersController extends AbstractController
             ->add('county', ChoiceType::class, [
                 'label' => 'Canton de départ :',
                 'choices'  => [
-                    'Saint-Etienne-du-Rouvray' => $this->cantonRepo->findOneBy(['id' => 31])->getId(),
-                    'Eu' => $this->cantonRepo->findOneBy(['id' => 10])->getId(),
-                    'Saint-Romain-de-Colbosc' => $this->cantonRepo->findOneBy(['id' => 32])->getId()
+                    'Saint-Etienne-du-Rouvray' => $this->cantonRepo->findOneBy(['id' => 31]),
+                    'Eu' => $this->cantonRepo->findOneBy(['id' => 10]),
+                    'Saint-Romain-de-Colbosc' => $this->cantonRepo->findOneBy(['id' => 32])
                 ]
             ])
             ->add('save', SubmitType::class, ['label' => 'Valider'])
@@ -174,6 +174,14 @@ class PlayersController extends AbstractController
                     'Rouge' => 'Rouge',
                     'Vert' => 'Vert',
                     'Jaune' => 'Jaune'
+                ]
+            ])
+            ->add('county', ChoiceType::class, [
+                'label' => 'Canton de départ :',
+                'choices'  => [
+                    'Saint-Etienne-du-Rouvray' => $this->cantonRepo->findOneBy(['id' => 31]),
+                    'Eu' => $this->cantonRepo->findOneBy(['id' => 10]),
+                    'Saint-Romain-de-Colbosc' => $this->cantonRepo->findOneBy(['id' => 32])
                 ]
             ])
             ->add('save', SubmitType::class, array('label' => 'Editer'))
